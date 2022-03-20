@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { addUser, login } = require("./userControllers");
+const { addUser, login, updatePassword } = require("./userControllers");
 const { hashPassword, decryptPassword, checkToken } = require("../middleware");
 const userRouter = Router();
 
