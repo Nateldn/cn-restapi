@@ -1,8 +1,9 @@
 const bcrypt = require("bcryptjs");
-const jwt =require("jsonwebtoken");
+const jwt = require("jsonwebtoken");
 const User = require("../user/userModel");
 
-exports.hashPassword = async (req, res, next) => {// Next is like a return statement - the defining difference between middleware and a controller
+exports.hashPassword = async (req, res, next) => {
+  // Next is like a return statement - the defining difference between middleware and a controller
   try {
     req.body.password = await bcrypt.hash(req.body.password, 8);
     next();
@@ -28,11 +29,13 @@ exports.decryptPassword = async (req, res, next) => {
 
 exports.checkToken = async (req, res, next) => {
   try {
-    const token = req.header("Authorization").replace("Bearer ", "");
-    const decodedToken = await jwt.verify(token, process.env.SECRET);
+    const decodedToken = await jwt.verify(
+      req.header("Authorization").replace("Bearer ", ""),
+      process.env.SECRET
+    );
     req.user = await User.findById(decodedToken._id);
     if (req.user) {
-        next();
+      next();
     } else {
       throw new Error("No user found");
     }

@@ -12,5 +12,5 @@ app.use(movieRouter);
 app.use(userRouter);
 
 app.listen(port, () => {
-  console.log(`Listening on port ${port}`);
+  console.log(`Server listening on port: ${port}`);
 });
